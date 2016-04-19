@@ -7,46 +7,56 @@ using System.Threading.Tasks;
 
 namespace AppxDeployTool
 {
-    public class DeplyManager
+    public class DeployManager
     {
-        public static readonly DeplyManager Instance = new DeplyManager();
-        private List<string> deplyFiles;
+        public static readonly DeployManager Instance = new DeployManager();
+        private List<string> deployFiles;
 
         public void Clear()
         {
-            deplyFiles = new List<string>();
+            deployFiles = new List<string>();
         }
-        public void SetDeplyFile(string[] deplyFilesName)
+        public void SetDeployFile(string[] deployFilesName)
         {
-            if(deplyFilesName?.Length>0)
+            if(deployFilesName?.Length>0)
             {
-                deplyFiles = deplyFilesName.ToList();
+                deployFiles = deployFilesName.ToList();
             }
         }
-        public void SetDeplyFile(string deplyFilesName)
+        public void SetDeployFile(string deployFilesName)
         {
-            if(!string.IsNullOrWhiteSpace(deplyFilesName))
+            if(!string.IsNullOrWhiteSpace(deployFilesName))
             {
-                deplyFiles = new List<string>();
-                deplyFiles.Add(deplyFilesName);
+                deployFiles = new List<string>();
+                deployFiles.Add(deployFilesName);
             }
         }
-        public void StartDeplyAppx(Action<bool,string> callback)
-        {
-            if(deplyFiles?.Count>0)
-            {
-                foreach(string filepath in deplyFiles)
-                {
-                    if (!File.Exists(filepath))
-                    {
-                        callback?.Invoke(false, "指定的文件不正确");
-                        return;
-                    }
-                    else
-                    {
 
-                    }
+        public void StartDeployAppx(Action<bool,string> callback)
+        {
+            if(deployFiles?.Count>0)
+            {
+                foreach(string filepath in deployFiles)
+                {
+                    DeployAppxOnce(filepath);                    
                 }
+            }
+        }
+
+        private bool DeployAppxOnce(string fileWithPath)
+        {
+            if (!File.Exists(fileWithPath))
+            {
+                return false;
+            }
+            else
+            {
+                CMDInvoker.Instance.AddParam("install ");
+                CMDInvoker.Instance.AddParam("-file", fileWithPath);
+                CMDInvoker.Instance.AddParam("-ip", "127.0.0.1");
+                CMDInvoker.Instance.AddParam("-pin", "r1U8m5");
+                CMDInvoker.Instance.Invoke();
+                return true;
             }
         }
     }

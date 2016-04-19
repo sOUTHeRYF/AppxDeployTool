@@ -7,24 +7,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using MSDeploy = Microsoft.Tools.Deploy.Host.Cmd;
 namespace AppxDeployTool
 {
     public partial class MainForm : Form
     {
-        private string[] chosenFiles;
+        delegate void SetTextCallback(string text, bool ifClear);
+        private static MainForm Instance;
+        private string[] chosenFiles = new string[0];
         public MainForm()
         {
+            Instance = this;
             InitializeComponent();
 
             SettingManager.Instance.Init();
+            MSDeploy.Program.Init((string str) =>
+            {
+                LogOut(str);
+            });
         }
 
         private void ChooseFileBtn_Click(object sender, EventArgs e)
         {
-            if(DialogResult.OK == this.ChooseAppxDialog.ShowDialog())
+
+            //    MSDeploy.Program.Main(null);
+
+            if (DialogResult.OK == this.ChooseAppxDialog.ShowDialog())
             {
-                if(this.ChooseAppxDialog.FileNames?.Length >0 )
+                if (this.ChooseAppxDialog.FileNames?.Length > 0)
                 {
                     this.FileToDeployTextBox.Text = this.ChooseAppxDialog.FileNames[0];
                     if (this.ChooseAppxDialog.FileNames.Length > 1)
@@ -35,17 +45,18 @@ namespace AppxDeployTool
                     this.chosenFiles = this.ChooseAppxDialog.FileNames;
                 }
             }
+
         }
 
-        private void coverDeplyBtn_Click(object sender, EventArgs e)
+        private void coverDeployBtn_Click(object sender, EventArgs e)
         {
             //  CMDInvoker.Instance.SetExe()
             StatusStrip.Text = "处理中...";
-            StartDeply(DeplyMode.Cover);
+            StartDeploy(DeployMode.Cover);
         }
-        private void updateDeplyBtn_Click(object sender, EventArgs e)
+        private void updateDeployBtn_Click(object sender, EventArgs e)
         {
-            StartDeply(DeplyMode.Update);
+            StartDeploy(DeployMode.Update);
         }
         private void SettingToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -63,19 +74,19 @@ namespace AppxDeployTool
 
         }
 
-
-        private void StartDeply(AppxDeployTool.DeplyMode mode)
+        private void StartDeploy(AppxDeployTool.DeployMode mode)
         {
             if (!string.IsNullOrWhiteSpace(this.FileToDeployTextBox.Text))
             {
                 StatusStrip.Text = "处理中...";
-                DeplyManager.Instance.Clear();
-                if (this.chosenFiles?.Length <= 0)
+                DeployManager.Instance.Clear();
+                if (this.chosenFiles?.Length+0 <= 0)
                 {
                     this.chosenFiles = new string[1] { this.FileToDeployTextBox.Text };
                 }
-                DeplyManager.Instance.SetDeplyFile(this.chosenFiles);
-                DeplyManager.Instance.StartDeplyAppx((bool result,string message)=> {
+                DeployManager.Instance.SetDeployFile(this.chosenFiles);
+                DeployManager.Instance.StartDeployAppx((bool result, string message) =>
+                {
                     this.StatusStrip.Text = message;
                 });
             }
@@ -85,5 +96,27 @@ namespace AppxDeployTool
                 return;
             }
         }
+
+        public static void LogOut(string str, bool ifClear = false)
+        {
+            if (Instance.LogTextBox.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(LogOut);
+                Instance.Invoke(d, new object[] { str, ifClear });
+           //     d.Invoke(str, ifClear);
+            }
+            else
+            {
+                if (!ifClear)
+                {
+                    Instance.LogTextBox.AppendText(str);
+                }
+                else
+                {
+                    Instance.LogTextBox.Text = str;
+                }
+            }
+        }
+
     }
 }

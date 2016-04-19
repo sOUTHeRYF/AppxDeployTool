@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppxDeployTool
 {
-    public enum DeplyMode
+    public enum DeployMode
     {
         Update = 0,
         Cover = 1,

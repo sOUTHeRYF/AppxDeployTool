@@ -14,9 +14,23 @@ namespace AppxDeployTool
         public void Init()
         {
             innerContent = new Dictionary<string, string>();
-            innerContent.Add("DeplyToolExcutePath", @"C:\Program Files (x86)\Windows Kits\10\bin\x86");
-            innerContent.Add("DeplyToolExcuteName", @"WinAppDeployCmd.exe");
+            innerContent.Add("DeployToolExcutePath", @"C:\Program Files (x86)\Windows Kits\10\bin\x86");
+            innerContent.Add("DeployToolExcuteName", @"WinAppDeployCmd.exe");
             innerContent.Add("DefaultIPAddress", @"127.0.0.1");
+        }
+        public string GetSetting(string index)
+        {
+            if(null != innerContent)
+            {
+                string result = "";
+                innerContent.TryGetValue(index, out result);
+                return result;
+            }
+            else
+            {
+                Init();
+                return GetSetting(index);
+            }
         }
     }
 }

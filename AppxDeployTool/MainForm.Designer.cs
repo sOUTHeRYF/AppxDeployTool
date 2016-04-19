@@ -33,16 +33,15 @@
             this.FileToDeployTextBox = new System.Windows.Forms.TextBox();
             this.ChooseFileBtn = new System.Windows.Forms.Button();
             this.ChooseAppxDialog = new System.Windows.Forms.OpenFileDialog();
-            this.updateDeplyBtn = new System.Windows.Forms.Button();
-            this.coverDeplyBtn = new System.Windows.Forms.Button();
+            this.updateDeployBtn = new System.Windows.Forms.Button();
+            this.coverDeployBtn = new System.Windows.Forms.Button();
             this.MoreMenuStrip = new System.Windows.Forms.MenuStrip();
             this.MoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LogTextBox = new System.Windows.Forms.TextBox();
             this.MoreMenuStrip.SuspendLayout();
-            this.StatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -80,25 +79,25 @@
             this.ChooseAppxDialog.SupportMultiDottedExtensions = true;
             this.ChooseAppxDialog.Title = "选择要进行部署的Appx包";
             // 
-            // updateDeplyBtn
+            // updateDeployBtn
             // 
-            this.updateDeplyBtn.Location = new System.Drawing.Point(460, 88);
-            this.updateDeplyBtn.Name = "updateDeplyBtn";
-            this.updateDeplyBtn.Size = new System.Drawing.Size(75, 23);
-            this.updateDeplyBtn.TabIndex = 3;
-            this.updateDeplyBtn.Text = "更新部署";
-            this.updateDeplyBtn.UseVisualStyleBackColor = true;
-            this.updateDeplyBtn.Click += new System.EventHandler(this.updateDeplyBtn_Click);
+            this.updateDeployBtn.Location = new System.Drawing.Point(501, 88);
+            this.updateDeployBtn.Name = "updateDeployBtn";
+            this.updateDeployBtn.Size = new System.Drawing.Size(75, 23);
+            this.updateDeployBtn.TabIndex = 3;
+            this.updateDeployBtn.Text = "更新部署";
+            this.updateDeployBtn.UseVisualStyleBackColor = true;
+            this.updateDeployBtn.Click += new System.EventHandler(this.updateDeployBtn_Click);
             // 
-            // coverDeplyBtn
+            // coverDeployBtn
             // 
-            this.coverDeplyBtn.Location = new System.Drawing.Point(573, 88);
-            this.coverDeplyBtn.Name = "coverDeplyBtn";
-            this.coverDeplyBtn.Size = new System.Drawing.Size(95, 23);
-            this.coverDeplyBtn.TabIndex = 4;
-            this.coverDeplyBtn.Text = "覆盖部署";
-            this.coverDeplyBtn.UseVisualStyleBackColor = true;
-            this.coverDeplyBtn.Click += new System.EventHandler(this.coverDeplyBtn_Click);
+            this.coverDeployBtn.Location = new System.Drawing.Point(593, 88);
+            this.coverDeployBtn.Name = "coverDeployBtn";
+            this.coverDeployBtn.Size = new System.Drawing.Size(75, 23);
+            this.coverDeployBtn.TabIndex = 4;
+            this.coverDeployBtn.Text = "覆盖部署";
+            this.coverDeployBtn.UseVisualStyleBackColor = true;
+            this.coverDeployBtn.Click += new System.EventHandler(this.coverDeployBtn_Click);
             // 
             // MoreMenuStrip
             // 
@@ -134,27 +133,29 @@
             // 
             // StatusStrip
             // 
-            this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
             this.StatusStrip.Location = new System.Drawing.Point(0, 289);
             this.StatusStrip.Name = "StatusStrip";
             this.StatusStrip.Size = new System.Drawing.Size(693, 22);
             this.StatusStrip.TabIndex = 6;
             // 
-            // toolStripStatusLabel1
+            // LogTextBox
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.LogTextBox.Location = new System.Drawing.Point(32, 117);
+            this.LogTextBox.Multiline = true;
+            this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.LogTextBox.Size = new System.Drawing.Size(544, 169);
+            this.LogTextBox.TabIndex = 7;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(693, 311);
+            this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.StatusStrip);
-            this.Controls.Add(this.coverDeplyBtn);
-            this.Controls.Add(this.updateDeplyBtn);
+            this.Controls.Add(this.coverDeployBtn);
+            this.Controls.Add(this.updateDeployBtn);
             this.Controls.Add(this.ChooseFileBtn);
             this.Controls.Add(this.FileToDeployTextBox);
             this.Controls.Add(this.label1);
@@ -165,8 +166,6 @@
             this.Text = "AppxDeployTool";
             this.MoreMenuStrip.ResumeLayout(false);
             this.MoreMenuStrip.PerformLayout();
-            this.StatusStrip.ResumeLayout(false);
-            this.StatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,14 +177,14 @@
         private System.Windows.Forms.TextBox FileToDeployTextBox;
         private System.Windows.Forms.Button ChooseFileBtn;
         private System.Windows.Forms.OpenFileDialog ChooseAppxDialog;
-        private System.Windows.Forms.Button updateDeplyBtn;
-        private System.Windows.Forms.Button coverDeplyBtn;
+        private System.Windows.Forms.Button updateDeployBtn;
+        private System.Windows.Forms.Button coverDeployBtn;
         private System.Windows.Forms.MenuStrip MoreMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem MoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SettingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
         private System.Windows.Forms.StatusStrip StatusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.TextBox LogTextBox;
     }
 }
 
