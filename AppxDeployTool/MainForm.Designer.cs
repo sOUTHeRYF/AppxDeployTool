@@ -59,6 +59,7 @@
             this.FileToDeployTextBox.Name = "FileToDeployTextBox";
             this.FileToDeployTextBox.Size = new System.Drawing.Size(544, 21);
             this.FileToDeployTextBox.TabIndex = 1;
+            this.FileToDeployTextBox.Text = "F:\\1.appx";
             this.FileToDeployTextBox.TextChanged += new System.EventHandler(this.FileToDeployTextBox_TextChanged);
             // 
             // ChooseFileBtn
